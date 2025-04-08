@@ -1,0 +1,12 @@
+{% extends "store/base.html" %}
+{% block content %}
+<h2>Available Books</h2>
+<ul>
+    {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> by {{ book.author }} – ₹{{ book.price }}
+            <a class="btn" href="{% url 'add_to_cart' book.id %}">Add to Cart</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
