@@ -1,0 +1,5 @@
+<h2>Your Cart</h2>
+{% for book in books %}
+    <p>{{ book.title }} - ₹{{ book.price }}</p>
+{% endfor %}
+<a href="{% url 'go_back' %}">Back to Book Page</a>
