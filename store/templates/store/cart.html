@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+    <h2>Your Cart</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} - ₹{{ book.price }}</li>
+        {% empty %}
+            <li>Your cart is empty.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Back to Bookstore</a>
+</body>
+</html>

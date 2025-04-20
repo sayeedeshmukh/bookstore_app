@@ -6,6 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from .models import Book
 
+from django.shortcuts import render
+from django.views import View
+from .models import Book
+
 class RegistrationView(View):
     def get(self, request):
         return render(request, 'store/register.html')
@@ -48,8 +52,21 @@ class HomeView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'store/home.html')           
 
-    
+
 class BookListView(ListView):
     model = Book
     template_name = 'store/book_list.html'
     context_object_name = 'books'
+
+class CartView(View):
+    def get(self, request):
+        cart = request.session.get('cart', [])
+        books_in_cart = Book.objects.filter(id__in=cart)
+        return render(request, 'store/cart.html', {'books': books_in_cart})
+
+class AddToCartView(View):
+    def get(self, request, book_id):
+        cart = request.session.get('cart', [])
+        cart.append(book_id)
+        request.session['cart'] = cart
+        return redirect('cart')
